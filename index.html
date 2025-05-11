@@ -2,44 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Vim Cheatsheet</title>
+  <title>Cheatsheet Hub</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
       color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
     }
 
     h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
       text-align: center;
+      text-decoration: none;
       color: #2c3e50;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2rem;
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     }
 
-    th, td {
-      padding: 12px;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-
-    th {
-      background-color: #2c3e50;
-      color: white;
-    }
-
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
+    .card h2 {
+      margin-bottom: 1rem;
     }
 
     footer {
       text-align: center;
-      margin-top: 3rem;
+      padding: 1.5rem;
       font-size: 0.9rem;
       color: #888;
     }
@@ -47,65 +63,28 @@
 </head>
 <body>
 
-  <h1>Vim Cheatsheet</h1>
+  <header>
+    <h1>Cheatsheet Hub</h1>
+    <p>Quick access to essential developer commands</p>
+  </header>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Command</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>i</code></td>
-        <td>Enter insert mode</td>
-      </tr>
-      <tr>
-        <td><code>Esc</code></td>
-        <td>Exit insert mode</td>
-      </tr>
-      <tr>
-        <td><code>:w</code></td>
-        <td>Save the file</td>
-      </tr>
-      <tr>
-        <td><code>:q</code></td>
-        <td>Quit Vim</td>
-      </tr>
-      <tr>
-        <td><code>:wq</code></td>
-        <td>Save and quit</td>
-      </tr>
-      <tr>
-        <td><code>dd</code></td>
-        <td>Delete the current line</td>
-      </tr>
-      <tr>
-        <td><code>yy</code></td>
-        <td>Copy (yank) the current line</td>
-      </tr>
-      <tr>
-        <td><code>p</code></td>
-        <td>Paste after the cursor</td>
-      </tr>
-      <tr>
-        <td><code>u</code></td>
-        <td>Undo last change</td>
-      </tr>
-      <tr>
-        <td><code>/text</code></td>
-        <td>Search for "text"</td>
-      </tr>
-      <tr>
-        <td><code>:help</code></td>
-        <td>Open Vim help</td>
-      </tr>
-    </tbody>
-  </table>
+  <main class="container">
+    <a href="vim.html" class="card">
+      <h2>📝 Vim Cheatsheet</h2>
+      <p>Master the basics of Vim editing commands.</p>
+    </a>
+    <a href="python.html" class="card">
+      <h2>🐍 Python Cheatsheet</h2>
+      <p>Quick Python syntax and useful snippets.</p>
+    </a>
+    <a href="linux.html" class="card">
+      <h2>🐧 Linux Cheatsheet</h2>
+      <p>Essential terminal commands for Linux users.</p>
+    </a>
+  </main>
 
   <footer>
-    Made with ❤️ for Vim beginners
+    Built with ❤️ for developers by WCD
   </footer>
 
 </body>
