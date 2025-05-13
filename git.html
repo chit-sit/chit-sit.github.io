@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Git Cheatsheet</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0 1rem;
+    }
+
+    header {
+      background-color: #24292e;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #c0392b;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3rem;
+      margin-top: 2rem;
+    }
+
+    code {
+      background-color: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🐙 Git Cheatsheet</h1>
+    <p>Most common Git commands grouped by workflow</p>
+  </header>
+
+  <main>
+    <h2>SETUP</h2>
+    <ul>
+      <li><code>git config --global user.name "Your Name"</code> – Set name for commits</li>
+      <li><code>git config --global user.email "you@example.com"</code> – Set email for commits</li>
+      <li><code>git config --global color.ui auto</code> – Enable colorized output</li>
+    </ul>
+
+    <h2>SETUP & INIT</h2>
+    <ul>
+      <li><code>git init</code> – Create a new Git repository</li>
+      <li><code>git clone [url]</code> – Clone an existing repo</li>
+    </ul>
+
+    <h2>STAGE & SNAPSHOT</h2>
+    <ul>
+      <li><code>git status</code> – Check repo status</li>
+      <li><code>git add [file]</code> – Stage file</li>
+      <li><code>git add .</code> – Stage all changes</li>
+      <li><code>git commit -m "message"</code> – Commit staged changes</li>
+      <li><code>git reset [file]</code> – Unstage a file</li>
+      <li><code>git diff</code> – Show unstaged changes</li>
+    </ul>
+
+    <h2>BRANCH & MERGE</h2>
+    <ul>
+      <li><code>git branch</code> – List branches</li>
+      <li><code>git branch [name]</code> – Create new branch</li>
+      <li><code>git checkout [name]</code> – Switch branches</li>
+      <li><code>git checkout -b [name]</code> – Create and switch</li>
+      <li><code>git merge [branch]</code> – Merge into current branch</li>
+      <li><code>git branch -d [name]</code> – Delete a branch</li>
+    </ul>
+
+    <h2>INSPECT & COMPARE</h2>
+    <ul>
+      <li><code>git log</code> – View commit history</li>
+      <li><code>git log --oneline</code> – Condensed log</li>
+      <li><code>git diff</code> – Show differences</li>
+      <li><code>git show [commit]</code> – Show details of a commit</li>
+    </ul>
+
+    <h2>SHARE & UPDATE</h2>
+    <ul>
+      <li><code>git remote -v</code> – List remotes</li>
+      <li><code>git fetch</code> – Get latest from remote</li>
+      <li><code>git pull</code> – Fetch and merge</li>
+      <li><code>git push</code> – Push local to remote</li>
+      <li><code>git push -u origin [branch]</code> – Push new branch</li>
+    </ul>
+
+    <h2>REWRITE HISTORY</h2>
+    <ul>
+      <li><code>git commit --amend</code> – Modify last commit</li>
+      <li><code>git rebase [branch]</code> – Reapply commits on another base</li>
+      <li><code>git reset --hard [commit]</code> – Reset to specific commit</li>
+    </ul>
+
+    <h2>TEMPORARY COMMITS</h2>
+    <ul>
+      <li><code>git stash</code> – Save changes temporarily</li>
+      <li><code>git stash pop</code> – Reapply stash</li>
+      <li><code>git stash list</code> – View stashes</li>
+    </ul>
+  </main>
+</body>
+</html>
+

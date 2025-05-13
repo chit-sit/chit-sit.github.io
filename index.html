@@ -68,7 +68,11 @@
     <p>Quick access to essential developer commands</p>
   </header>
 
-  <main class="container">
+  <div style="text-align:center; margin-top: 1rem;">
+    <input type="text" id="searchInput" placeholder="Search cheatsheets..." style="padding: 0.7rem; width: 80%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc;">
+  </div>
+
+  <main class="container" id="cheatsheetContainer">
     <a href="vim.html" class="card">
       <h2>📝 Vim Cheatsheet</h2>
       <p>Master the basics of Vim editing commands.</p>
@@ -89,11 +93,76 @@
       <h2>🧱 TMUX Cheatsheet</h2>
       <p>Split terminals, manage sessions like a pro.</p>
     </a>
+    <a href="git.html" class="card">
+      <h2>🐙 GIT</h2>
+      <p>Essential git commands.</p>
+    </a>
   </main>
 
   <footer>
     Built with ❤️ for developers by WCD
   </footer>
+
+  <script>
+  const cheatsheets = [
+    {
+      title: "📝 Vim Cheatsheet",
+      url: "vim.html",
+      description: "Master the basics of Vim editing commands.",
+      keywords: "vim edit normal mode insert mode navigation"
+    },
+    {
+      title: "🐍 Python Cheatsheet",
+      url: "python.html",
+      description: "Quick Python syntax and useful snippets.",
+      keywords: "python syntax list dictionary loop function"
+    },
+    {
+      title: "🐧 Linux Cheatsheet",
+      url: "linux.html",
+      description: "Essential terminal commands for Linux users.",
+      keywords: "linux bash terminal ls cd mv grep find"
+    },
+    {
+      title: "🦀 Rust Cheatsheet",
+      url: "rust.html",
+      description: "Common Rust programming and Cargo commands.",
+      keywords: "rust cargo struct enum borrow ownership"
+    },
+    {
+      title: "🧱 TMUX Cheatsheet",
+      url: "tmux.html",
+      description: "Split terminals, manage sessions like a pro.",
+      keywords: "tmux split pane session detach keybind"
+    }
+  ];
+
+  const container = document.getElementById("cheatsheetContainer");
+  const input = document.getElementById("searchInput");
+
+  function renderCards(filtered = cheatsheets) {
+    container.innerHTML = "";
+    filtered.forEach(sheet => {
+      const card = document.createElement("a");
+      card.href = sheet.url;
+      card.className = "card";
+      card.innerHTML = `<h2>${sheet.title}</h2><p>${sheet.description}</p>`;
+      container.appendChild(card);
+    });
+  }
+
+  input.addEventListener("input", () => {
+    const query = input.value.toLowerCase();
+    const filtered = cheatsheets.filter(sheet =>
+      (sheet.title + sheet.description + sheet.keywords).toLowerCase().includes(query)
+    );
+    renderCards(filtered);
+  });
+
+  // Initial render
+  renderCards();
+
+</script>
 
 </body>
 </html>
