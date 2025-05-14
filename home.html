@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+
+  <title>Cheatsheet Hub</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      text-align: center;
+      text-decoration: none;
+      color: #2c3e50;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Cheatsheet Hub</h1>
+    <p>Quick access to essential developer commands</p>
+  </header>
+
+  <div style="text-align:center; margin-top: 1rem;">
+    <input type="text" id="searchInput" placeholder="Search cheatsheets..." style="padding: 0.7rem; width: 80%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc;">
+    <p id="resultCount" style="margin-top: 0.5rem; color: #666;"></p>
+  </div>
+
+
+  <main class="container" id="cheatsheetContainer">
+    <a href="vim.html" class="card">
+      <h2>📝 Vim Cheatsheet</h2>
+      <p>Master the basics of Vim editing commands.</p>
+    </a>
+    <a href="python.html" class="card">
+      <h2>🐍 Python Cheatsheet</h2>
+      <p>Quick Python syntax and useful snippets.</p>
+    </a>
+    <a href="linux.html" class="card">
+      <h2>🐧 Linux Cheatsheet</h2>
+      <p>Essential terminal commands for Linux users.</p>
+    </a>
+    <a href="rust.html" class="card">
+      <h2>🦀 Rust Cheatsheet</h2>
+      <p>Common Rust programming and Cargo commands.</p>
+    </a>
+    <a href="tmux.html" class="card">
+      <h2>🧱 TMUX Cheatsheet</h2>
+      <p>Split terminals, manage sessions like a pro.</p>
+    </a>
+    <a href="git.html" class="card">
+      <h2>🐙 GIT</h2>
+      <p>Essential git commands.</p>
+    </a>
+  </main>
+
+  <footer>
+    Built with ❤️ for developers by WCD
+  </footer>
+
+  <script>
+  const cheatsheets = [
+    {
+      title: "📝 Vim Cheatsheet",
+      url: "vim.html",
+      description: "Master the basics of Vim editing commands.",
+      keywords: "vim edit normal mode insert mode navigation"
+    },
+    {
+      title: "🐍 Python Cheatsheet",
+      url: "python.html",
+      description: "Quick Python syntax and useful snippets.",
+      keywords: "python syntax list dictionary loop function"
+    },
+    {
+      title: "🐧 Linux Cheatsheet",
+      url: "linux.html",
+      description: "Essential terminal commands for Linux users.",
+      keywords: "linux bash terminal ls cd mv grep find"
+    },
+    {
+      title: "🦀 Rust Cheatsheet",
+      url: "rust.html",
+      description: "Common Rust programming and Cargo commands.",
+      keywords: "rust cargo struct enum borrow ownership"
+    },
+    {
+      title: "🧱 TMUX Cheatsheet",
+      url: "tmux.html",
+      description: "Split terminals, manage sessions like a pro.",
+      keywords: "tmux split pane session detach keybind"
+    }
+  ];
+
+  const container = document.getElementById("cheatsheetContainer");
+  const input = document.getElementById("searchInput");
+  const resultCount = document.getElementById("resultCount");
+
+  function highlight(text, keyword) {
+    const regex = new RegExp(`(${keyword})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  function renderCards(filtered = cheatsheets, keyword = "") {
+    container.innerHTML = "";
+    filtered.forEach(sheet => {
+      const card = document.createElement("a");
+      card.href = sheet.url;
+      card.className = "card";
+      const title = keyword ? highlight(sheet.title, keyword) : sheet.title;
+      const description = keyword ? highlight(sheet.description, keyword) : sheet.description;
+      card.innerHTML = `<h2>${title}</h2><p>${description}</p>`;
+      container.appendChild(card);
+    });
+
+    resultCount.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''} found`;
+  }
+
+  input.addEventListener("input", () => {
+    const query = input.value.trim().toLowerCase();
+    const filtered = cheatsheets.filter(sheet =>
+      (sheet.title + sheet.description + sheet.keywords).toLowerCase().includes(query)
+    );
+    renderCards(filtered, query);
+  });
+
+  // Initial render
+  renderCards();
+</script>
+
+
+</body>
+</html>
+
