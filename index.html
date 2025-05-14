@@ -75,7 +75,9 @@
 
   <div style="text-align:center; margin-top: 1rem;">
     <input type="text" id="searchInput" placeholder="Search cheatsheets..." style="padding: 0.7rem; width: 80%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc;">
+    <p id="resultCount" style="margin-top: 0.5rem; color: #666;"></p>
   </div>
+
 
   <main class="container" id="cheatsheetContainer">
     <a href="vim.html" class="card">
@@ -94,10 +96,10 @@
       <h2>🦀 Rust Cheatsheet</h2>
       <p>Common Rust programming and Cargo commands.</p>
     </a>
-    <!-- <a href="tmux.html" class="card"> -->
-    <!--   <h2>🧱 TMUX Cheatsheet</h2> -->
-    <!--   <p>Split terminals, manage sessions like a pro.</p> -->
-    <!-- </a> -->
+    <a href="tmux.html" class="card">
+      <h2>🧱 TMUX Cheatsheet</h2>
+      <p>Split terminals, manage sessions like a pro.</p>
+    </a>
     <a href="git.html" class="card">
       <h2>🐙 GIT</h2>
       <p>Essential git commands.</p>
@@ -144,30 +146,40 @@
 
   const container = document.getElementById("cheatsheetContainer");
   const input = document.getElementById("searchInput");
+  const resultCount = document.getElementById("resultCount");
 
-  function renderCards(filtered = cheatsheets) {
+  function highlight(text, keyword) {
+    const regex = new RegExp(`(${keyword})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  function renderCards(filtered = cheatsheets, keyword = "") {
     container.innerHTML = "";
     filtered.forEach(sheet => {
       const card = document.createElement("a");
       card.href = sheet.url;
       card.className = "card";
-      card.innerHTML = `<h2>${sheet.title}</h2><p>${sheet.description}</p>`;
+      const title = keyword ? highlight(sheet.title, keyword) : sheet.title;
+      const description = keyword ? highlight(sheet.description, keyword) : sheet.description;
+      card.innerHTML = `<h2>${title}</h2><p>${description}</p>`;
       container.appendChild(card);
     });
+
+    resultCount.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''} found`;
   }
 
   input.addEventListener("input", () => {
-    const query = input.value.toLowerCase();
+    const query = input.value.trim().toLowerCase();
     const filtered = cheatsheets.filter(sheet =>
       (sheet.title + sheet.description + sheet.keywords).toLowerCase().includes(query)
     );
-    renderCards(filtered);
+    renderCards(filtered, query);
   });
 
   // Initial render
   renderCards();
-
 </script>
+
 
 </body>
 </html>
