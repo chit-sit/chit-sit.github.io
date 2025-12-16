@@ -73,6 +73,11 @@
     <p>Quick access to essential developer commands</p>
   </header>
 
+  <nav style="text-align: center; margin: 1.5rem auto 2rem; padding: 1rem; background-color: #eef2f7; border-radius: 8px; max-width: 800px; border: 1px solid #dce3ea;">
+    <a href="ask.html" style="display: inline-block; color: #2c3e50; text-decoration: none; padding: 0.5rem 1.2rem; margin: 0 0.5rem; border-radius: 5px; font-weight: bold; transition: background-color 0.3s; background-color: #e74c3c; color: white;">Ask Question</a>
+    <a href="questions.html" style="display: inline-block; color: #2c3e50; text-decoration: none; padding: 0.5rem 1.2rem; margin: 0 0.5rem; border-radius: 5px; font-weight: bold; transition: background-color 0.3s; background-color: #2ecc71; color: white;">View Questions</a>
+  </nav>
+
   <div style="text-align:center; margin-top: 1rem;">
     <input type="text" id="searchInput" placeholder="Search cheatsheets keyword..." style="padding: 0.7rem; width: 80%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc;">
     <p id="resultCount" style="margin-top: 0.5rem; color: #666;"></p>
@@ -80,34 +85,6 @@
 
 
   <main class="container" id="cheatsheetContainer">
-    <a href="vim.html" class="card">
-      <h2>📝 Vim Cheatsheet</h2>
-      <p>Master the basics of Vim editing commands.</p>
-    </a>
-    <a href="python.html" class="card">
-      <h2>🐍 Python Cheatsheet</h2>
-      <p>Quick Python syntax and useful snippets.</p>
-    </a>
-    <a href="linux.html" class="card">
-      <h2>🐧 Linux Cheatsheet</h2>
-      <p>Essential terminal commands for Linux users.</p>
-    </a>
-    <a href="rust.html" class="card">
-      <h2>🦀 Rust Cheatsheet</h2>
-      <p>Common Rust programming and Cargo commands.</p>
-    </a>
-    <a href="tmux.html" class="card">
-      <h2>🧱 TMUX Cheatsheet</h2>
-      <p>Split terminals, manage sessions like a pro.</p>
-    </a>
-    <a href="git.html" class="card">
-      <h2>🐙 GIT</h2>
-      <p>Essential git commands.</p>
-    </a>
-    <a href="ask.html" class="card">
-      <h2>❓ Ask Questions</h2>
-      <p>Submit your questions and get answers from the community.</p>
-    </a>
   </main>
 
   <footer>
@@ -147,10 +124,16 @@
       keywords: "tmux split pane session detach keybind"
     },
     {
-      title: "🐙  GIT Cheatsheet",
+      title: "🐙 GIT Cheatsheet",
       url: "git.html",
       description: "Essential git commands.",
       keywords: "git pull push stash clone"
+    },
+    {
+      title: "❓ Ask Questions",
+      url: "ask.html",
+      description: "Submit your questions and get answers from the community.",
+      keywords: "questions ask community help support"
     }
   ];
 
