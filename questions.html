@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <title>All Questions - Cheatsheet Hub</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    .questions-list {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+
+    .question-item {
+      border-bottom: 1px solid #eee;
+      padding: 1.5rem 0;
+    }
+
+    .question-item:last-child {
+      border-bottom: none;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .user-name {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .timestamp {
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+
+    .question-text {
+      margin: 0.5rem 0;
+      color: #34495e;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .status-open {
+      background-color: #f1c40f;
+      color: #7d6608;
+    }
+
+    .status-answered {
+      background-color: #2ecc71;
+      color: #0e5e2e;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #7f8c8d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 3rem;
+    }
+
+    nav {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    nav a {
+      color: #3498db;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .search-container {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    #searchInput {
+      padding: 0.7rem;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>All Questions</h1>
+    <p>Browse all questions submitted by the community</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a> | <a href="ask.html">Ask Question</a> | <a href="questions.html">View Questions</a>
+  </nav>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search questions...">
+  </div>
+
+  <div class="container">
+    <div class="questions-list">
+      <h2>Questions</h2>
+      <div id="questionsContainer" class="loading">Loading questions...</div>
+    </div>
+  </div>
+
+  <footer>
+    Built with ❤️ for developers by WCD
+  </footer>
+
+  <script src="js/json-db.js"></script>
+  <script>
+    // Initialize the database
+    const db = new window.JSONDatabase('questions.json');
+
+    // Function to load questions from JSON file
+    async function loadQuestions() {
+      try {
+        const data = await db.getAll('questions');
+        displayQuestions(data);
+        setupSearch(data);
+      } catch (error) {
+        console.error('Error loading questions:', error);
+        document.getElementById('questionsContainer').innerHTML = '<p>Error loading questions.</p>';
+      }
+    }
+
+    // Function to format date as a readable string
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleString();
+    }
+
+    // Function to display questions
+    function displayQuestions(questionsToShow = null) {
+      const container = document.getElementById('questionsContainer');
+
+      if (!questionsToShow) {
+        questionsToShow = [];
+      }
+
+      if (questionsToShow.length === 0) {
+        container.innerHTML = '<p>No questions found.</p>';
+        return;
+      }
+
+      container.innerHTML = '';
+
+      const sortedQuestions = [...questionsToShow].sort((a, b) =>
+        new Date(b.timestamp) - new Date(a.timestamp)
+      );
+
+      sortedQuestions.forEach(question => {
+        const questionElement = document.createElement('div');
+        questionElement.className = 'question-item';
+
+        questionElement.innerHTML = `
+          <div class="question-header">
+            <span class="user-name">${question.userName}</span>
+            <span class="timestamp">${formatDate(question.timestamp)}</span>
+          </div>
+          <p class="question-text">${question.question}</p>
+          <span class="status status-${question.status}">${question.status.charAt(0).toUpperCase() + question.status.slice(1)}</span>
+        `;
+
+        container.appendChild(questionElement);
+      });
+    }
+
+    // Setup search functionality
+    function setupSearch(questionsData) {
+      const searchInput = document.getElementById('searchInput');
+
+      searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        if (!searchTerm) {
+          loadQuestions(); // Reload all questions if search is empty
+          return;
+        }
+
+        const filteredQuestions = questionsData.filter(question =>
+          question.question.toLowerCase().includes(searchTerm) ||
+          question.userName.toLowerCase().includes(searchTerm)
+        );
+
+        displayQuestions(filteredQuestions);
+      });
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      loadQuestions();
+    });
+  </script>
+</body>
+</html>
